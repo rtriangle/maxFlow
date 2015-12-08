@@ -1,5 +1,5 @@
-#ifndef network_mkm_h
-#define network_mkm_h
+#ifndef Network_mkm_h
+#define Network_mkm_h
 
 #include <vector>
 
@@ -19,87 +19,40 @@ private:
 	std::vector< std::vector<Edge> > edge;
 public:
 	Network() {}
-	Network(size_t n, size_t start1, size_t finish1) {
-		edge.resize(n + 1);
-		numberOfVertices = n;
-		numberOfEdges = 0;
-		start = start1;
-		finish = finish1;
-	}
+	Network(size_t n, size_t start1, size_t finish1);
 
-	void addEdge(size_t from, size_t to, long long capacity) {
-		edge[from].push_back(Edge(to, capacity, edge[to].size(), false));
-		edge[to].push_back(Edge(from, 0, edge[from].size() - 1, true));
-		edge[from][edge[from].size() - 1].flow = 0;
-		edge[to][edge[to].size() - 1].flow = 0;
-		++numberOfEdges;
-	}
+	void addEdge(size_t from, size_t to, long long capacity);
 
-	size_t getNumberOfVertices() {
-		return numberOfVertices;
-	}
+	size_t getNumberOfVertices();
 
-	size_t getNumberOfEdges() {
-		return numberOfEdges;
-	}
+	size_t getNumberOfEdges();
 
-	size_t getStart() {
-		return start;
-	}
-	size_t getFinish() {
-		return finish;
-	}
+	size_t getStart();
 
-	size_t getEdgeToOnPosition(size_t v, size_t pos) {
-		if (pos < edge[v].size()) {
-			return edge[v][pos].to;
-		}
-		else
-			return 0;
-	}
+	size_t getFinish();
 
-	size_t getVertexDegree(size_t v) {
-		return edge[v].size();
-	}
+	size_t getEdgeToOnPosition(size_t v, size_t pos);
 
-	size_t getReversedEdgeNumber(size_t u, size_t number) {
-		return edge[u][number].reversedEdgeNumber;
-	}
+	size_t getVertexDegree(size_t v);
 
-	long long getCap(size_t v, size_t number) {
-		return edge[v][number].capacity;
-	}
+	size_t getReversedEdgeNumber(size_t u, size_t number);
 
-	void setCap(size_t v, size_t number, long long _capacity) {
-		edge[v][number].capacity = _capacity;
-	}
+	long long getCap(size_t v, size_t number);
+
+	void setCap(size_t v, size_t number, long long _capacity);
 
 	//v->v[number] returns cap(v[number] -> v)
-	long long getCapReversedEdge(size_t v, size_t number) {
-		size_t v1 = edge[v][number].to;
-		size_t rNumber = edge[v][number].reversedEdgeNumber;
-		return edge[v1][rNumber].capacity;
-	}
-	long long getFlowReversedEdge(size_t v, size_t number) {
-		size_t v1 = edge[v][number].to;
-		size_t rNumber = edge[v][number].reversedEdgeNumber;
-		return edge[v1][rNumber].flow;
-	}
-	long long getFlow(size_t v, size_t number) {
-		return edge[v][number].flow;
-	}
+	long long getCapReversedEdge(size_t v, size_t number);
 
-	void setFlow(size_t v, size_t number, long long _flow) {
-		edge[v][number].flow = _flow;
-	}
+	long long getFlowReversedEdge(size_t v, size_t number);
 
-	bool getEdgeReversed(size_t v, size_t number) {
-		return edge[v][number].reverse;
-	}
+	long long getFlow(size_t v, size_t number);
 
-	Edge getEdgeOnPosition(size_t u, size_t pos) {
-		return edge[u][pos];
-	}
+	void setFlow(size_t v, size_t number, long long _flow);
+
+	bool getEdgeReversed(size_t v, size_t number);
+
+	Edge getEdgeOnPosition(size_t u, size_t pos);
 };
 
 #endif
