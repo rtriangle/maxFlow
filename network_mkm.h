@@ -8,8 +8,8 @@ public:
 	long long capacity, flow;
 	size_t to, reversedEdgeNumber;
 	bool reverse;
-	Edge(size_t _to, long long _capacity, size_t _reversedEdgeNumber, bool _reverse) :
-		to(_to), capacity(_capacity), reversedEdgeNumber(_reversedEdgeNumber), reverse(_reverse) {}
+	Edge(size_t to1, long long capacity1, size_t reversedEdgeNumber1, bool reverse1) :
+		to(to1), capacity(capacity1), reversedEdgeNumber(reversedEdgeNumber1), reverse(reverse1) {}
 };
 
 class Network {
@@ -19,19 +19,19 @@ private:
 	std::vector< std::vector<Edge> > edge;
 public:
 	Network() {}
-	Network(size_t n, size_t _start, size_t _finish) {
+	Network(size_t n, size_t start1, size_t finish1) {
 		edge.resize(n + 1);
 		numberOfVertices = n;
 		numberOfEdges = 0;
-		start = _start;
-		finish = _finish;
+		start = start1;
+		finish = finish1;
 	}
 
-	void addEdge(size_t _from, size_t _to, long long _capacity) {
-		edge[_from].push_back(Edge(_to, _capacity, edge[_to].size(), false));
-		edge[_to].push_back(Edge(_from, 0, edge[_from].size() - 1, true));
-		edge[_from][edge[_from].size() - 1].flow = 0;
-		edge[_to][edge[_to].size() - 1].flow = 0;
+	void addEdge(size_t from, size_t to, long long capacity) {
+		edge[from].push_back(Edge(to, capacity, edge[to].size(), false));
+		edge[to].push_back(Edge(from, 0, edge[from].size() - 1, true));
+		edge[from][edge[from].size() - 1].flow = 0;
+		edge[to][edge[to].size() - 1].flow = 0;
 		++numberOfEdges;
 	}
 
@@ -95,6 +95,10 @@ public:
 
 	bool getEdgeReversed(size_t v, size_t number) {
 		return edge[v][number].reverse;
+	}
+
+	Edge getEdgeOnPosition(size_t u, size_t pos) {
+		return edge[u][pos];
 	}
 };
 

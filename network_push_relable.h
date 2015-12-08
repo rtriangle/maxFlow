@@ -9,8 +9,8 @@ public:
 	size_t to;
 	bool reverse;
 	size_t reversedEdge;
-	Edge(size_t _to, long long _capacity) : to(_to), capacity(_capacity), reverse(false), reversedEdge(0), flow(0) {}
-	Edge(size_t _to, long long _capacity, size_t _reversedEdge) : to(_to), capacity(_capacity), reverse(false), reversedEdge(_reversedEdge), flow(0) {}
+	Edge(size_t to1, long long capacity1) : to(to1), capacity(capacity1), reverse(false), reversedEdge(0), flow(0) {}
+	Edge(size_t to1, long long capacity1, size_t reversedEdge1) : to(to1), capacity(capacity1), reverse(false), reversedEdge(reversedEdge1), flow(0) {}
 };
 
 class Network {
@@ -19,26 +19,26 @@ private:
 	std::vector< size_t > current;
 	std::vector< long long > excess;
 	std::vector< size_t > height;
-	std::vector< size_t > vertexes;
+	std::vector< size_t > vertices;
 	size_t numberOfEdges, numberOfVertices;
 	size_t start, finish;
 public:
-	Network(size_t n, size_t _start, size_t _finish) {
+	Network(size_t n, size_t start1, size_t finish1) {
 		edge.resize(n + 1);
 		numberOfVertices = n;
 		numberOfEdges = 0;
-		start = _start;
-		finish = _finish;
+		start = start1;
+		finish = finish1;
 	}
 
 	Network(){}
 
-	void addEdge(size_t _from, size_t _to, long long _capacity) {
-		edge[_from].push_back(Edge(_to, _capacity, edge[_to].size()));
-		edge[_to].push_back(Edge(_from, 0, edge[_from].size() - 1));
-		if (_from == start) {
-			edge[_from][edge[_from].size() - 1].flow = (_from == start ? _capacity : 0);
-			edge[_to][edge[_to].size() - 1].flow = (_from == start ? -_capacity : 0);
+	void addEdge(size_t from1, size_t to1, long long capacity1) {
+		edge[from1].push_back(Edge(to1, capacity1, edge[to1].size()));
+		edge[to1].push_back(Edge(from1, 0, edge[from1].size() - 1));
+		if (from1 == start) {
+			edge[from1][edge[from1].size() - 1].flow = (from1 == start ? capacity1 : 0);
+			edge[to1][edge[to1].size() - 1].flow = (from1 == start ? -capacity1 : 0);
 		}
 		++numberOfEdges;
 	}
@@ -86,6 +86,10 @@ public:
 		edge[u][pos].flow += addflow;
 		size_t tmp = edge[u][pos].reversedEdge;
 		edge[edge[u][pos].to][tmp].flow -= addflow;
+	}
+
+	Edge getEdgeOnPosition(size_t u, size_t pos) {
+		return edge[u][pos];
 	}
 };
 

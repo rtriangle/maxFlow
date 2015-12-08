@@ -15,6 +15,7 @@ private:
 	size_t doIt;
 	std::queue <size_t> q;
 	std::list< size_t > verteces;
+	const long long INF = 1e16;
 
 	void initialize() {
 		size_t numVert = NetworkGraph.getNumberOfVertices() - 1;

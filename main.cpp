@@ -4,19 +4,19 @@
 #include <list>
 #include <cstdlib>
 #include <algorithm>
-//#include "mkm_algo.h"
-#include "push_relable_algo.h"
+#include "mkm_algo.h"
+//#include "push_relable_algo.h"
 #pragma warning(disable:4996)
 
 using namespace std;
 
 int main() {
-//	freopen("input.txt", "r", stdin);
-//	freopen("output.txt", "w", stdout);
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
 	int v, e;
 	std::cin >> v >> e;
 	Network networkGraph(v + 1, 1, v);
-	std::vector < std::pair <size_t, size_t> > inputEdgesOrder;
+	vector < pair <size_t, size_t> > inputEdgesOrder;
 	size_t from, to;
 	long long capacity;
 	for (size_t i = 0; i < e; ++i) {
@@ -29,9 +29,10 @@ int main() {
 			networkGraph.addEdge(from, to, capacity);
 		}
 	}
-	PushRelabelAlgo dischargeAlgo;
-	dischargeAlgo.findMaxFlow(networkGraph);
-	dischargeAlgo.output(inputEdgesOrder);
+	MKMAlgo mkm(inputEdgesOrder);
+	mkm.findMaxFlow(networkGraph);
+	mkm.output(inputEdgesOrder);
+//	cout << dischargeAlgo;
 	fclose(stdin);
 	fclose(stdout);
 	return 0;
