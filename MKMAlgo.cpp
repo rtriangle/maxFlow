@@ -6,6 +6,7 @@
 #include <list>
 #include <algorithm>
 #include "MKMAlgo.h"
+#include "ProjectAdditionalFunctions.h"
 
 using namespace std;
 
@@ -36,10 +37,6 @@ void MKMAlgo::calculateVertexPotential(size_t u) {
 		}
 	}
 	updatePotential(u);
-}
-
-void MKMAlgo::BFS(size_t u) {
-	level = BFSforAll<FlowEdge>(1, networkGraph, EdgeChecker);
 }
 
 long long MKMAlgo::pushByEdge(size_t u, size_t number, long long flowToPush) {
@@ -142,7 +139,7 @@ void MKMAlgo::findMaxFlow(Network networkGraphInput) {
 	resizePotentials();
 	while (doIt) {
 		doIt = false;
-		BFS(networkGraph.getStart());
+		maxFlowProject::graphMethods::BFSforAll<FlowEdge>(size_t(0), networkGraph, maxFlowProject::edgeFunctions::EdgeChecker);
 		if (level[networkGraph.getFinish()] != networkGraph.getNumberOfVertices() + 1) {
 			doIt = true;
 		}

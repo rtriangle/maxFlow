@@ -5,10 +5,11 @@
 #include <queue>
 #include <list>
 #include "Network.h"
+#include "MaxFlowFinder.h"
 
 using namespace std;
 
-class PushRelabelAlgo {
+class PushRelabelAlgo : public MaxFlowFinder {
 private:
 	std::vector <size_t> height, currentEdge;
 	std::vector <long long> excess;

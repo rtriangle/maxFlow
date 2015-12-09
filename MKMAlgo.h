@@ -6,14 +6,11 @@
 #include <list>
 #include "Network.h"
 #include "BFSforAll.h"
+#include "MaxFlowFinder.h"
 
 using namespace std;
 
-bool EdgeChecker(long long capacity, long long flow) {
-	return capacity - flow > 0;
-}
-
-class MKMAlgo {
+class MKMAlgo : public MaxFlowFinder {
 private:
 	std::vector <bool> deletedVerteces;
 	std::vector <long long> inPotential, outPotential, potential;
@@ -23,8 +20,6 @@ private:
 	void updatePotential(size_t v);
 
 	void calculateVertexPotential(size_t u);
-
-	void BFS(size_t u);
 
 	long long pushByEdge(size_t u, size_t number, long long flowToPush);
 
