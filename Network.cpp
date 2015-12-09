@@ -1,17 +1,7 @@
 #ifndef Network_mkm_cpp
 #define Network_mkm_cpp
-#include "Network_mkm.h"
-
+#include "Network.h"
 #include <vector>
-
-class Edge {
-public:
-	long long capacity, flow;
-	size_t to, reversedEdgeNumber;
-	bool reverse;
-	Edge(size_t to1, long long capacity1, size_t reversedEdgeNumber1, bool reverse1) :
-		to(to1), capacity(capacity1), reversedEdgeNumber(reversedEdgeNumber1), reverse(reverse1) {}
-};
 
 Network::Network(size_t n, size_t start1, size_t finish1) {
 		edge.resize(n + 1);
@@ -22,8 +12,8 @@ Network::Network(size_t n, size_t start1, size_t finish1) {
 	}
 
 void Network::addEdge(size_t from, size_t to, long long capacity) {
-	edge[from].push_back(Edge(to, capacity, edge[to].size(), false));
-	edge[to].push_back(Edge(from, 0, edge[from].size() - 1, true));
+	edge[from].push_back(FlowEdge(to, capacity, edge[to].size(), false));
+	edge[to].push_back(FlowEdge(from, 0, edge[from].size() - 1, true));
 	edge[from][edge[from].size() - 1].flow = 0;
 	edge[to][edge[to].size() - 1].flow = 0;
 	++numberOfEdges;
@@ -94,7 +84,7 @@ bool Network::getEdgeReversed(size_t v, size_t number) {
 	return edge[v][number].reverse;
 }
 
-Edge Network::getEdgeOnPosition(size_t u, size_t pos) {
+FlowEdge Network::getEdgeOnPosition(size_t u, size_t pos) {
 	return edge[u][pos];
 }
 

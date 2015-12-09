@@ -1,5 +1,5 @@
-#ifndef BFS_h
-#define BFS_h
+#ifndef BFSforAll_h
+#define BFSforAll_h
 #include <vector>
 #include <queue>
 

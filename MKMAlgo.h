@@ -1,10 +1,11 @@
-#ifndef MKM_algo_h
-#define MKM_algo_h
+#ifndef MKMÀlgo_h
+#define MKMÀlgo_h
 
 #include <vector>
 #include <queue>
 #include <list>
-#include "Network_mkm.h"
+#include "Network.h"
+#include "BFSforAll.h"
 
 using namespace std;
 
@@ -50,20 +51,6 @@ public:
 
 };
 
-ostream& operator << (ostream& stream, MKMAlgo algo) {
-	long long resFlow = 0;
-	for (int i = 0; i < algo.networkGraph.getVertexDegree(1); ++i)
-		if (algo.networkGraph.getEdgeToOnPosition(1, i) != 1) {
-			resFlow += algo.networkGraph.getFlow(1, i);
-		}
-	cout << resFlow << '\n';
-	for (int i = 0; i < algo.inputEdgesOrder.size(); ++i) {
-		if (algo.inputEdgesOrder[i].first != -1)
-			cout << algo.networkGraph.getFlow(algo.inputEdgesOrder[i].first, algo.inputEdgesOrder[i].second) << "\n";
-		else
-			cout << "0\n";
-	}
-	return stream;
-}
+ostream& operator << (ostream& stream, MKMAlgo algo);
 
 #endif

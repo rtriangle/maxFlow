@@ -2,23 +2,22 @@
 #define Network_mkm_h
 
 #include <vector>
+#include "FlowEdge.h"
+#include "Graph.h"
 
-class Edge {
-public:
-	long long capacity, flow;
-	size_t to, reversedEdgeNumber;
-	bool reverse;
-	Edge(size_t to1, long long capacity1, size_t reversedEdgeNumber1, bool reverse1) :
-		to(to1), capacity(capacity1), reversedEdgeNumber(reversedEdgeNumber1), reverse(reverse1) {}
-};
+class Network:public Graph {
 
-class Network {
 private:
-	size_t numberOfEdges, numberOfVertices;
-	size_t start, finish;
-	std::vector< std::vector<Edge> > edge;
+	size_t numberOfEdges, numberOfVertices, start, finish;
+	std::vector< size_t > current;
+	std::vector< std::vector<FlowEdge> > edge;
+	std::vector< long long > excess;
+	std::vector< size_t > height;
+
 public:
+
 	Network() {}
+
 	Network(size_t n, size_t start1, size_t finish1);
 
 	void addEdge(size_t from, size_t to, long long capacity);
@@ -52,7 +51,9 @@ public:
 
 	bool getEdgeReversed(size_t v, size_t number);
 
-	Edge getEdgeOnPosition(size_t u, size_t pos);
+	void changeFlow(size_t u, size_t pos, long long addflow);
+
+	FlowEdge getEdgeOnPosition(size_t u, size_t pos);
 };
 
 #endif

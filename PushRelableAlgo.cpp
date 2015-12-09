@@ -1,5 +1,5 @@
-#ifndef Push_relable_algo_cpp
-#define Push_relable_algo_cpp
+#ifndef PushRelableAlgo_cpp
+#define PushRelableAlgo_cpp
 
 #include <vector>
 #include <queue>
@@ -96,6 +96,22 @@ void PushRelabelAlgo::output(std::vector < std::pair <size_t, size_t> > inputEdg
 		else
 			cout << "0\n";
 	}
+}
+
+ostream& operator << (ostream& stream, PushRelabelAlgo algo) {
+	long long resFlow = 0;
+	for (int i = 0; i < algo.networkGraph.getVertexDegree(1); ++i)
+		if (algo.networkGraph.getEdgeToOnPosition(1, i) != 1) {
+			resFlow += algo.networkGraph.getFlow(1, i);
+		}
+	cout << resFlow << '\n';
+	for (int i = 0; i < algo.inputEdgesOrder.size(); ++i) {
+		if (algo.inputEdgesOrder[i].first != -1)
+			cout << algo.networkGraph.getFlow(algo.inputEdgesOrder[i].first, algo.inputEdgesOrder[i].second) << "\n";
+		else
+			cout << "0\n";
+	}
+	return stream;
 }
 
 #endif

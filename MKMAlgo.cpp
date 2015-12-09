@@ -6,7 +6,6 @@
 #include <list>
 #include <algorithm>
 #include "MKMAlgo.h"
-#include "network_mkm.cpp"
 
 using namespace std;
 
@@ -40,7 +39,7 @@ void MKMAlgo::calculateVertexPotential(size_t u) {
 }
 
 void MKMAlgo::BFS(size_t u) {
-	level = BFSforAll<Edge>(1, networkGraph, EdgeChecker);
+	level = BFSforAll<FlowEdge>(1, networkGraph, EdgeChecker);
 }
 
 long long MKMAlgo::pushByEdge(size_t u, size_t number, long long flowToPush) {

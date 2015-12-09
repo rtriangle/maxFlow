@@ -4,7 +4,7 @@
 #include <vector>
 #include <queue>
 #include <list>
-#include "Network_push_ralable.h"
+#include "Network.h"
 
 using namespace std;
 
@@ -38,20 +38,6 @@ public:
 	void output(std::vector < std::pair <size_t, size_t> > inputEdgesOrder);
 };
 
-ostream& operator << (ostream& stream, PushRelabelAlgo algo) {
-	long long resFlow = 0;
-	for (int i = 0; i < algo.networkGraph.getVertexDegree(1); ++i)
-		if (algo.networkGraph.getEdgeToOnPosition(1, i) != 1) {
-			resFlow += algo.networkGraph.getFlow(1, i);
-		}
-	cout << resFlow << '\n';
-	for (int i = 0; i < algo.inputEdgesOrder.size(); ++i) {
-		if (algo.inputEdgesOrder[i].first != -1)
-			cout << algo.networkGraph.getFlow(algo.inputEdgesOrder[i].first, algo.inputEdgesOrder[i].second) << "\n";
-		else
-			cout << "0\n";
-	}
-	return stream;
-}
+ostream& operator << (ostream& stream, PushRelabelAlgo algo);
 
 #endif
